@@ -1,0 +1,70 @@
+size = 10:
+  imp = sequential:
+      00:00:00:00.213
+  imp = gsl:
+      00:00:00:00.207
+  imp = parallel:
+      00:00:00:00.341
+size = 20:
+  imp = sequential:
+      00:00:00:00.214
+  imp = gsl:
+      00:00:00:00.213
+  imp = parallel:
+      00:00:00:00.379
+size = 30:
+  imp = sequential:
+      00:00:00:00.201
+  imp = gsl:
+      00:00:00:00.194
+  imp = parallel:
+      00:00:00:00.419
+size = 40:
+  imp = sequential:
+      00:00:00:00.191
+  imp = gsl:
+      00:00:00:00.228
+  imp = parallel:
+      00:00:00:00.589
+size = 50:
+  imp = sequential:
+      00:00:00:00.238
+  imp = gsl:
+      00:00:00:00.252
+  imp = parallel:
+      00:00:00:00.705
+size = 60:
+  imp = sequential:
+      00:00:00:00.244
+  imp = gsl:
+      00:00:00:00.260
+  imp = parallel:
+      00:00:00:00.759
+size = 70:
+  imp = sequential:
+      00:00:00:00.252
+  imp = gsl:
+      00:00:00:00.265
+  imp = parallel:
+      00:00:00:00.738
+size = 80:
+  imp = sequential:
+      00:00:00:00.270
+  imp = gsl:
+      00:00:00:00.283
+  imp = parallel:
+      00:00:00:00.958
+size = 90:
+  imp = sequential:
+      00:00:00:00.271
+  imp = gsl:
+      00:00:00:00.310
+  imp = parallel:
+      00:00:00:00.963
+size = 100:
+  imp = sequential:
+      00:00:00:00.287
+  imp = gsl:
+      00:00:00:00.327
+  imp = parallel:
+      00:00:00:00.758
