@@ -1,70 +1,60 @@
-size = 10:
-  imp = sequential:
-      00:00:00:00.213
-  imp = gsl:
-      00:00:00:00.207
-  imp = parallel:
-      00:00:00:00.341
-size = 20:
-  imp = sequential:
-      00:00:00:00.214
-  imp = gsl:
-      00:00:00:00.213
-  imp = parallel:
-      00:00:00:00.379
-size = 30:
-  imp = sequential:
-      00:00:00:00.201
-  imp = gsl:
-      00:00:00:00.194
-  imp = parallel:
-      00:00:00:00.419
-size = 40:
-  imp = sequential:
-      00:00:00:00.191
-  imp = gsl:
-      00:00:00:00.228
-  imp = parallel:
-      00:00:00:00.589
-size = 50:
-  imp = sequential:
-      00:00:00:00.238
-  imp = gsl:
-      00:00:00:00.252
-  imp = parallel:
-      00:00:00:00.705
-size = 60:
-  imp = sequential:
-      00:00:00:00.244
-  imp = gsl:
-      00:00:00:00.260
-  imp = parallel:
-      00:00:00:00.759
-size = 70:
-  imp = sequential:
-      00:00:00:00.252
-  imp = gsl:
-      00:00:00:00.265
-  imp = parallel:
-      00:00:00:00.738
-size = 80:
-  imp = sequential:
-      00:00:00:00.270
-  imp = gsl:
-      00:00:00:00.283
-  imp = parallel:
-      00:00:00:00.958
-size = 90:
-  imp = sequential:
-      00:00:00:00.271
-  imp = gsl:
-      00:00:00:00.310
-  imp = parallel:
-      00:00:00:00.963
-size = 100:
-  imp = sequential:
-      00:00:00:00.287
-  imp = gsl:
-      00:00:00:00.327
-  imp = parallel:
-      00:00:00:00.758
+Matrix size is 10 X 10:
+
+   Average time for sequential implementation is: 0.323231 seconds
+   Average time for gsl implementation is: 0.2155 seconds
+   Average time for parallel implementation is: 0.2262 seconds
+
+Matrix size is 25 X 25:
+
+   Average time for sequential implementation is: 0.2059 seconds
+   Average time for gsl implementation is: 0.2196 seconds
+   Average time for parallel implementation is: 0.2386 seconds
+
+Matrix size is 50 X 50:
+
+   Average time for sequential implementation is: 0.2237 seconds
+   Average time for gsl implementation is: 0.2603 seconds
+   Average time for parallel implementation is: 0.3 seconds
+
+Matrix size is 100 X 100:
+
+   Average time for sequential implementation is: 0.3249 seconds
+   Average time for gsl implementation is: 0.3707 seconds
+   Average time for parallel implementation is: 0.4205 seconds
+
+Matrix size is 150 X 150:
+
+   Average time for sequential implementation is: 0.7474 seconds
+   Average time for gsl implementation is: 0.5256 seconds
+   Average time for parallel implementation is: 0.663 seconds
+
+Matrix size is 200 X 200:
+
+   Average time for sequential implementation is: 0.6324 seconds
+   Average time for gsl implementation is: 0.6332 seconds
+   Average time for parallel implementation is: 0.9997 seconds
+
+Matrix size is 250 X 250:
+
+   Average time for sequential implementation is: 0.9611 seconds
+   Average time for gsl implementation is: 0.9176 seconds
+   Average time for parallel implementation is: 1.5071 seconds
+
+Matrix size is 500 X 500:
+
+   Average time for sequential implementation is: 3.6337 seconds
+   Average time for gsl implementation is: 3.4346 seconds
+   Average time for parallel implementation is: 5.902 seconds
+
+Matrix size is 750 X 750:
+
+   Average time for sequential implementation is: 8.9452 seconds
+   Average time for gsl implementation is: 10.7764 seconds
+   Average time for parallel implementation is: 14.221 seconds
+
+Matrix size is 1000 X 1000:
+
+   Average time for sequential implementation is: 18.0685 seconds
+   Average time for gsl implementation is: 17.7116 seconds
+   Average time for parallel implementation is: 28.9935 seconds
+

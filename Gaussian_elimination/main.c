@@ -14,6 +14,11 @@ int main(int argc, char *argv[]) {
 
     FILE* input_file = fopen(file_name, "r");
 
+    if (NULL == input_file) {
+        fprintf(stderr, "Can't open file %s", file_name);
+        exit(1);
+    }
+
     double *matrix = malloc(sizeof(*matrix) * matrix_size * matrix_size);
     double *equations = malloc(sizeof(*equations) * matrix_size);
     double *solution = malloc(sizeof(*solution) * matrix_size);
@@ -34,17 +39,20 @@ int main(int argc, char *argv[]) {
     }
     #endif
 
-    if (strcmp(imp_type, "sequential") == 0) {
+    if (0 == strcmp(imp_type, "sequential")) {
         sequential_imp(matrix, equations, solution, matrix_size);
-    }
-    if (strcmp(imp_type, "gsl") == 0) {
+    } else if (0 == strcmp(imp_type, "gsl")) {
         gsl_imp(matrix, equations, solution, matrix_size);
-    }
-    if (strcmp(imp_type, "parallel") == 0) {
+    } else if (0 == strcmp(imp_type, "parallel")) {
         parallel_imp(matrix, equations, solution, matrix_size);
     }
 
     FILE* output_file = fopen(imp_type, "w");
+
+    if (NULL == output_file) {
+        fprintf(stderr, "Can't open file %s", imp_type);
+        exit(1);
+    }
 
     for (int i = 0; i < matrix_size; ++i) {
         fprintf(output_file, "%12.4f\n", solution[i]);
@@ -53,9 +61,9 @@ int main(int argc, char *argv[]) {
     fclose(input_file);
     fclose(output_file);
 
-    free(matrix);
-    free(equations);
     free(solution);
-
+    free(equations);
+    free(matrix);
+    
     return 0;
 }

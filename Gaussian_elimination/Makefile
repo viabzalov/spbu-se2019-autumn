@@ -1,14 +1,10 @@
+CFLAGS= -Wall -Werror -Wpedantic -O0  -fopenmp -lgsl -lgslcblas -lm
+
 main: sequential.o gsl.o parallel.o main.o
-	gcc -O3 -fopenmp -o $@ $^ -lgsl -lgslcblas -lm
-
-parallel.o: parallel.c
-	gcc -c -O3 -fopenmp -o $@ $<
-
-gsl.o: gsl.c
-	gcc -c -O3 -o $@ $< -lgsl -lgslcblas -lm
+	gcc $(CFLAGS) -o $@ $^
 
 %.o: %.c
-	gcc -c -O3 -o $@ $< 
+	gcc $(CFLAGS) -c -o $@ $< 
 
 .PHONY = clean
 
