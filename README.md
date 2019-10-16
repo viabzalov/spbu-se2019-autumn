@@ -4,7 +4,11 @@
 
 Изучить возможности OpenMP на примере задачи [решения системы линейных уравнений методом Гаусса](https://en.wikipedia.org/wiki/Gaussian_elimination). 
 
+## Эксперимент
+
 Код написан на C (Си). Собирается c флагами `-Wall -Werror -Wpedantic -O0  -fopenmp -lgsl -lgslcblas -lm`
+
+Время замеряется с помощью инструмента [Valgrind](https://en.wikipedia.org/wiki/Valgrind) с флагами `--tool=callgrind --time-stamp=yes`
 
 ## Результаты замеров времени работы
 
