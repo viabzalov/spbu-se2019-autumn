@@ -5,20 +5,37 @@ namespace Producer_consumer_problem
 {
     public class Producer<T> where T : new()
     {
-        private static Thread myThread = new Thread(PutData);
+        private readonly int _id;
 
-        public void Stop() => myThread.Abort();
+        private bool _isRunning = true;
 
-        private static void PutData()
+        public Producer()
         {
-            while (myThread.ThreadState != ThreadState.StopRequested)
+            var myThread = new Thread(PutData);
+            _id = myThread.ManagedThreadId;
+            myThread.Start();
+        }
+
+        public void Stop() => _isRunning = false;
+
+        private void PutData()
+        {
+            Info.Print("Producer", _id, Temp<T>.Size(), "started");
+            
+            while (_isRunning)
             {
                 Temp<T>.mPut.WaitOne();
-                Temp<T>.buffer.Enqueue(new T());
-                Thread.Sleep((int) TimeSpan.FromSeconds(Program.WaitTime).TotalMilliseconds);
+                
+                Temp<T>.Buffer.Enqueue(new T());
+                
+                Info.Print("Producer", _id, Temp<T>.Size(), "adding");
+                Thread.Sleep((int) TimeSpan.FromSeconds(Info.WaitTimeInSeconds).TotalMilliseconds);
+                
                 Temp<T>.ready.Release();
                 Temp<T>.mPut.ReleaseMutex();
             }
+
+            Info.Print("Producer", _id, Temp<T>.Size(), "ended");
         }
     }
 }
