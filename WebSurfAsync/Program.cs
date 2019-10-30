@@ -13,6 +13,8 @@ namespace WebSurfAsync
             var inputUrl = Console.ReadLine();
 
             await GetMentionedUrls(inputUrl);
+
+            Console.ReadKey();
         }
 
         private static async Task GetMentionedUrls(string url)
@@ -26,20 +28,25 @@ namespace WebSurfAsync
 
         private static void ReadUrlAsync(string url)
         {
+            if (!url.StartsWith("http")) return;
+
             var web = new WebClient();
-            string content;
+            var content = "";
+
+            Info.Print(url, content.Length);
 
             try
             {
                 content = web.DownloadString(url);
             }
-            catch (WebException)
+            catch (Exception)
             {
-                return;
+                // ignored
             }
-
-            Console.WriteLine($"{url.Substring(0, Math.Min(url.Length, 100)),100} - " +
-                              $"{content.Length,10}");
+            finally
+            {
+                Info.Print(url, content.Length);
+            }
         }
     }
 }
