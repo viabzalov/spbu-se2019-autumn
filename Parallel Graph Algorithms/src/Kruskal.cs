@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GraphParallelAlgorithms_2._0
+namespace GraphParallelAlgorithms
 {
     public static class Kruskal
     {
@@ -16,13 +16,11 @@ namespace GraphParallelAlgorithms_2._0
             long result = 0;
 
             foreach (var edge in edges)
-            {
                 if (dsu.Find(edge.start) != dsu.Find(edge.end))
                 {
                     result += edge.weight;
                     dsu.Union(edge.start, edge.end);
                 }
-            }
 
             return result;
         }
@@ -72,13 +70,11 @@ namespace GraphParallelAlgorithms_2._0
             long result = 0;
 
             foreach (var edge in edges)
-            {
                 if (dsu.Find(edge.start) != dsu.Find(edge.end))
                 {
                     result += edge.weight;
                     dsu.Union(edge.start, edge.end);
                 }
-            }
 
             return result;
         }
@@ -132,13 +128,11 @@ namespace GraphParallelAlgorithms_2._0
             long result = 0;
 
             foreach (var edge in edges)
-            {
                 if (dsu.Find(edge.start) != dsu.Find(edge.end))
                 {
                     result += edge.weight;
                     dsu.Union(edge.start, edge.end);
                 }
-            }
 
             return result;
         }

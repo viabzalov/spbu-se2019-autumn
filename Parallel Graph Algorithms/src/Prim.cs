@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GraphParallelAlgorithms_2._0
+namespace GraphParallelAlgorithms
 {
     public static class Prim
     {

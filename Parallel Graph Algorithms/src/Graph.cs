@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GraphParallelAlgorithms_2._0
+namespace GraphParallelAlgorithms
 {
     public class Graph
     {
@@ -9,6 +9,11 @@ namespace GraphParallelAlgorithms_2._0
         public List<Edge> Edges;
         public int EdgesNumber;
         public int VerticesNumber;
+
+        public Graph(string fileName)
+        {
+            this.ReadGraph(fileName);
+        }
 
         public Graph()
         {
