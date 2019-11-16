@@ -16,24 +16,29 @@ namespace Producer_consumer_problem
             myThread.Start();
         }
 
-        public void Stop() => _isRunning = false;
+        public void Stop()
+        {
+            _isRunning = false;
+        }
 
         private void PutData()
         {
             Info.Print("Producer", _id, Temp<T>.Size(), "started");
-            
-            while (_isRunning)
+
+            while (_isRunning || !Info.AllConsumersDone)
             {
-                Temp<T>.mPut.WaitOne();
-                
+                Temp<T>.Put.WaitOne();
+
                 Temp<T>.Buffer.Enqueue(new T());
-                
+
                 Info.Print("Producer", _id, Temp<T>.Size(), "adding");
                 Thread.Sleep((int) TimeSpan.FromSeconds(Info.WaitTimeInSeconds).TotalMilliseconds);
-                
-                Temp<T>.ready.Release();
-                Temp<T>.mPut.ReleaseMutex();
+
+                Temp<T>.Ready.Release();
+                Temp<T>.Put.ReleaseMutex();
             }
+
+            if (Interlocked.Decrement(ref Info.AliveProducers) == 0) Info.AllProducersDone = true;
 
             Info.Print("Producer", _id, Temp<T>.Size(), "ended");
         }
