@@ -8,11 +8,13 @@ namespace WebSurfAsync
 {
     internal class Program
     {
-        private static async Task Main(string[] args)
+        private static void Main()
         {
             var inputUrl = Console.ReadLine();
 
-            await GetMentionedUrls(inputUrl);
+            GetMentionedUrls(inputUrl).Wait();
+
+            Console.WriteLine("That's all!");
 
             Console.ReadKey();
         }
@@ -20,32 +22,43 @@ namespace WebSurfAsync
         private static async Task GetMentionedUrls(string url)
         {
             var web = new HtmlWeb();
-            var doc = web.Load(url);
+            HtmlDocument doc;
+            try
+            {
+                doc = web.Load(url);
+            }
+            catch
+            {
+                throw new Exception("Wrong url address");
+            }
 
-            await Task.WhenAll(doc.DocumentNode.SelectNodes("//a[@href]")
-                .Select(node => Task.Run(() => ReadUrlAsync(node.Attributes["href"].Value))).ToList());
+            await Task
+                .WhenAll(doc.DocumentNode
+                    .SelectNodes("//a[@href]")
+                    .Select(node =>
+                        Task.Run(() => { ReadUrlAsync(node.Attributes["href"].Value); })).ToList());
         }
 
-        private static void ReadUrlAsync(string url)
+        private static async void ReadUrlAsync(string url)
         {
             if (!url.StartsWith("http")) return;
 
             var web = new WebClient();
-            var content = "";
+            var pageSize = 0;
 
-            Info.Print(url, content.Length);
+            Printer.Print(url, pageSize);
 
             try
             {
-                content = web.DownloadString(url);
+                pageSize = (await web.DownloadStringTaskAsync(url)).Length;
             }
-            catch (Exception)
+            catch
             {
-                // ignored
+                pageSize = -1;
             }
             finally
             {
-                Info.Print(url, content.Length);
+                Printer.Print(url, pageSize);
             }
         }
     }
