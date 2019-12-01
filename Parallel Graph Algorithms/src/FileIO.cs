@@ -10,9 +10,7 @@ namespace GraphParallelAlgorithms
             using (var reader = new StreamReader(fileName))
             {
                 g.VerticesNumber = int.Parse(reader.ReadLine());
-
                 g.AdjacencyMatrix = new long[g.VerticesNumber, g.VerticesNumber];
-
                 g.Edges = new List<Graph.Edge>();
 
                 while (!reader.EndOfStream)
@@ -24,7 +22,6 @@ namespace GraphParallelAlgorithms
                     var weight = int.Parse(edge[2]);
 
                     g.Edges.Add(new Graph.Edge(start, end, weight));
-
                     g.AdjacencyMatrix[start, end] = weight;
                     g.AdjacencyMatrix[end, start] = weight;
                 }

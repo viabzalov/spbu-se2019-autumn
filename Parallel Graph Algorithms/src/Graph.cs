@@ -37,7 +37,6 @@ namespace GraphParallelAlgorithms
                 if (AdjacencyMatrix[start, end] != 0) continue;
 
                 Edges.Add(new Edge(start, end, weight));
-
                 AdjacencyMatrix[start, end] = weight;
                 AdjacencyMatrix[end, start] = weight;
             }
