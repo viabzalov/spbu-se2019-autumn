@@ -5,7 +5,7 @@ namespace GraphParallelAlgorithms
 {
     public static class Floyd
     {
-        public static long[,] SequentialFloyd(this Graph g)
+        public static long[,] RunSequentialFloyd(this Graph g)
         {
             var dist = (long[,]) g.AdjacencyMatrix.Clone();
 
@@ -25,7 +25,7 @@ namespace GraphParallelAlgorithms
             return dist;
         }
 
-        public static long[,] ParallelForFloyd(this Graph g)
+        public static long[,] RunParallelForFloyd(this Graph g)
         {
             var dist = (long[,]) g.AdjacencyMatrix.Clone();
 
@@ -47,7 +47,7 @@ namespace GraphParallelAlgorithms
             return dist;
         }
 
-        public static long[,] ParallelThreadsFloyd(this Graph g)
+        public static long[,] RunParallelThreadsFloyd(this Graph g)
         {
             var dist = (long[,]) g.AdjacencyMatrix.Clone();
 

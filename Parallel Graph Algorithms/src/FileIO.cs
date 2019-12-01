@@ -34,7 +34,7 @@ namespace GraphParallelAlgorithms
         {
             using (var writer = new StreamWriter("floyd.txt"))
             {
-                var res = g.ParallelForFloyd();
+                var res = g.RunParallelForFloyd();
 
                 for (var i = 0; i < g.VerticesNumber; ++i)
                 {
@@ -48,7 +48,7 @@ namespace GraphParallelAlgorithms
         {
             using (var writer = new StreamWriter("kruskal.txt"))
             {
-                writer.WriteLine($"{g.ParallelForKruskal()}");
+                writer.WriteLine($"{g.RunParallelForKruskal()}");
             }
         }
 
@@ -56,7 +56,7 @@ namespace GraphParallelAlgorithms
         {
             using (var writer = new StreamWriter("prim.txt"))
             {
-                writer.WriteLine($"{g.ParallelForPrim()}");
+                writer.WriteLine($"{g.RunParallelForPrim()}");
             }
         }
     }

@@ -6,7 +6,7 @@ namespace GraphParallelAlgorithms
 {
     public static class Prim
     {
-        public static long SequentialPrim(this Graph g)
+        public static long RunSequentialPrim(this Graph g)
         {
             var used = new HashSet<int>();
             var unused = new HashSet<int>();
@@ -36,7 +36,7 @@ namespace GraphParallelAlgorithms
             return result;
         }
 
-        public static long ParallelForPrim(this Graph g)
+        public static long RunParallelForPrim(this Graph g)
         {
             var used = new HashSet<int>();
             var unused = new HashSet<int>();
@@ -79,7 +79,7 @@ namespace GraphParallelAlgorithms
             return result;
         }
 
-        public static long ParallelThreadsPrim(this Graph g)
+        public static long RunParallelThreadsPrim(this Graph g)
         {
             var used = new HashSet<int>();
             var unused = new HashSet<int>();

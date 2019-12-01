@@ -7,7 +7,7 @@ namespace GraphParallelAlgorithms
 {
     public static class Kruskal
     {
-        public static long SequentialKruskal(this Graph g)
+        public static long RunSequentialKruskal(this Graph g)
         {
             var dsu = new DisjointSetUnion(g.VerticesNumber);
             var edges = g.Edges.ToList();
@@ -25,7 +25,7 @@ namespace GraphParallelAlgorithms
             return result;
         }
 
-        public static long ParallelForKruskal(this Graph g)
+        public static long RunParallelForKruskal(this Graph g)
         {
             var dsu = new DisjointSetUnion(g.VerticesNumber);
             var edges = new List<Graph.Edge>();
@@ -79,7 +79,7 @@ namespace GraphParallelAlgorithms
             return result;
         }
 
-        public static long ParallelThreadsKruskal(this Graph g)
+        public static long RunParallelThreadsKruskal(this Graph g)
         {
             var dsu = new DisjointSetUnion(g.VerticesNumber);
             var edges = new List<Graph.Edge>();
