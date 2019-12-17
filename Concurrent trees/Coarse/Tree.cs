@@ -1,10 +1,4 @@
-﻿#region
-
-using System.Threading;
-
-#endregion
-
-namespace Concurrent_trees.Coarse
+﻿namespace Concurrent_trees.Coarse
 {
     public class Tree
     {
@@ -13,21 +7,19 @@ namespace Concurrent_trees.Coarse
         public bool Find(int key)
         {
             if (root == null) return false;
-            
+
             lock (this)
             {
                 var node = root;
 
-                while (true)
+                while (node != null)
                 {
                     if (node.Key == key) return true;
 
-                    var next = node.Key > key ? node.Left : node.Right;
-
-                    if (next == null) return false;
-
-                    node = next;
+                    node = node.Key > key ? node.Left : node.Right;
                 }
+
+                return false;
             }
         }
 

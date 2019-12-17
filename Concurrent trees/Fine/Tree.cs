@@ -2,86 +2,62 @@
 {
     public class Tree
     {
-        private readonly Node fakeRoot = new Node();
-
         private Node root;
 
         public bool Find(int key)
         {
-            fakeRoot.Lock();
-
-            if (root == null)
+            lock (this)
             {
-                fakeRoot.Unlock();
-                return false;
+                return root != null && FindNode(ref root, ref root, key);
             }
-
-            root.Lock();
-
-            var node = root;
-
-            while (true)
+        }
+        
+        public void Insert(int key)
+        {
+            lock (this)
             {
-                if (node.Key == key)
+                if (Find(key)) return;
+
+                var newNode = new Node(key);
+
+                if (root == null)
                 {
-                    node.Parent.Unlock();
-                    node.Unlock();
-                    return true;
+                    root = newNode;
+                    return;
                 }
 
-                var next = node.Key > key ? node.Left : node.Right;
-
-                if (next == null)
-                {
-                    node.Parent.Unlock();
-                    node.Unlock();
-                    return false;
-                }
-                
-                next.Lock();
-                node.Parent.Unlock();
-                node = next;
+                InsertNode(ref root, ref root, ref newNode);
             }
         }
 
-        public void Insert(int key)
+        private bool FindNode(ref Node node, ref Node parent, int key)
         {
-            if (Find(key)) return;
-
-            fakeRoot.Lock();
-
-            var newNode = new Node(key);
-
-            if (root == null)
+            lock (parent)
+            lock (node)
             {
-                root = newNode;
-                root.Parent = fakeRoot;
-                fakeRoot.Left = root;
-                fakeRoot.Right = root;
-                fakeRoot.Unlock();
-                return;
+                if (node.Key == key) return true;
+
+                var next = node.Key > key ? node.Left : node.Right;
+
+                return next != null && FindNode(ref next, ref node, key);
             }
+        }
 
-            root.Lock();
-
-            var node = root;
-
-            while (true)
+        private void InsertNode(ref Node node, ref Node parent, ref Node newNode)
+        {
+            lock (parent)
+            lock (node)
             {
-                if (node.Key > key)
+                if (node.Key > newNode.Key)
                 {
                     if (node.Left == null)
                     {
                         node.Left = newNode;
                         node.Left.Parent = node;
-                        node.Parent.Unlock();
-                        node.Unlock();
                         return;
                     }
-                    
-                    node.Left.Lock();
-                    node.Parent.Unlock();
-                    node = node.Left;
+
+                    InsertNode(ref node.Left, ref node, ref newNode);
                 }
                 else
                 {
@@ -89,14 +65,10 @@
                     {
                         node.Right = newNode;
                         node.Right.Parent = node;
-                        node.Parent.Unlock();
-                        node.Unlock();
                         return;
                     }
 
-                    node.Right.Lock();
-                    node.Parent.Unlock();
-                    node = node.Right;
+                    InsertNode(ref node.Right, ref node, ref newNode);
                 }
             }
         }
