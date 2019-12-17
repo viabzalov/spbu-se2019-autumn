@@ -11,13 +11,6 @@ namespace Concurrent_trees.Coarse
         public Node Parent;
         public Node Right;
 
-        public Node(int key)
-        {
-            Key = key;
-        }
-
-        public Node()
-        {
-        }
+        public Node(int key) => Key = key;
     }
 }

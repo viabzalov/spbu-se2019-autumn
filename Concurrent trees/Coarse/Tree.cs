@@ -8,89 +8,71 @@ namespace Concurrent_trees.Coarse
 {
     public class Tree
     {
-        private readonly Mutex _mutex = new Mutex();
-
-        private readonly Node fakeRoot = new Node();
-
         private Node root;
 
         public bool Find(int key)
         {
-            _mutex.WaitOne();
-
-            if (root == null)
+            if (root == null) return false;
+            
+            lock (this)
             {
-                _mutex.ReleaseMutex();
-                return false;
-            }
+                var node = root;
 
-            var node = root;
-
-            while (true)
-            {
-                if (node.Key == key)
+                while (true)
                 {
-                    _mutex.ReleaseMutex();
-                    return true;
+                    if (node.Key == key) return true;
+
+                    var next = node.Key > key ? node.Left : node.Right;
+
+                    if (next == null) return false;
+
+                    node = next;
                 }
-
-                var next = node.Key > key ? node.Left : node.Right;
-
-                if (next == null)
-                {
-                    _mutex.ReleaseMutex();
-                    return false;
-                }
-
-                node = next;
             }
         }
 
         public void Insert(int key)
         {
-            if (Find(key)) return;
-
-            _mutex.WaitOne();
-
-            var newNode = new Node(key);
-
-            if (root == null)
+            lock (this)
             {
-                root = newNode;
-                root.Parent = fakeRoot;
-                fakeRoot.Left = root;
-                fakeRoot.Right = root;
-                _mutex.ReleaseMutex();
-                return;
+                if (Find(key)) return;
+
+                var newNode = new Node(key);
+
+                if (root == null)
+                {
+                    root = newNode;
+                    return;
+                }
+
+                var node = root;
+
+                while (true)
+                {
+                    if (node.Key > key)
+                    {
+                        if (node.Left == null)
+                        {
+                            node.Left = newNode;
+                            node.Left.Parent = node;
+                            return;
+                        }
+
+                        node = node.Left;
+                    }
+                    else
+                    {
+                        if (node.Right == null)
+                        {
+                            node.Right = newNode;
+                            node.Right.Parent = node;
+                            return;
+                        }
+
+                        node = node.Right;
+                    }
+                }
             }
-
-            var node = root;
-
-            while (true)
-                if (node.Key > key)
-                {
-                    if (node.Left == null)
-                    {
-                        node.Left = newNode;
-                        node.Left.Parent = node;
-                        _mutex.ReleaseMutex();
-                        return;
-                    }
-
-                    node = node.Left;
-                }
-                else
-                {
-                    if (node.Right == null)
-                    {
-                        node.Right = newNode;
-                        node.Right.Parent = node;
-                        _mutex.ReleaseMutex();
-                        return;
-                    }
-
-                    node = node.Right;
-                }
         }
     }
 }

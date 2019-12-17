@@ -37,9 +37,9 @@
                     node.Unlock();
                     return false;
                 }
-
-                node.Parent.Unlock();
+                
                 next.Lock();
+                node.Parent.Unlock();
                 node = next;
             }
         }
@@ -67,6 +67,7 @@
             var node = root;
 
             while (true)
+            {
                 if (node.Key > key)
                 {
                     if (node.Left == null)
@@ -77,9 +78,9 @@
                         node.Unlock();
                         return;
                     }
-
-                    node.Parent.Unlock();
+                    
                     node.Left.Lock();
+                    node.Parent.Unlock();
                     node = node.Left;
                 }
                 else
@@ -93,10 +94,11 @@
                         return;
                     }
 
-                    node.Parent.Unlock();
                     node.Right.Lock();
+                    node.Parent.Unlock();
                     node = node.Right;
                 }
+            }
         }
     }
 }
